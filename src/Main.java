@@ -75,7 +75,7 @@ public class Main {
 		JButton btnNewButton_1 = new JButton("");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				customer cus = new customer();
+				Customer cus = new Customer();
 				cus.frame.setVisible(true);
 				frame.setVisible(false);
 			}
@@ -102,7 +102,8 @@ public class Main {
 		JButton btnNewButton_3 = new JButton("");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				System.exit(0);
+				
 			}
 		});
 		btnNewButton_3.setIcon(new ImageIcon(Main.class.getResource("/image/ExitBtn.jpg")));

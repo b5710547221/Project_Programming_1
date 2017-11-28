@@ -72,24 +72,32 @@ public class ShippingGUI extends ShoppingGUI{
 		frame.getContentPane().add(btnBack);
 		
 		JRadioButton rdbtnIncorrectOrders = new JRadioButton("Incorrect orders");
+		rdbtnIncorrectOrders.setSelected(true);
 		rdbtnIncorrectOrders.setBackground(Color.WHITE);
-		rdbtnIncorrectOrders.setBounds(101, 405, 149, 23);
+		rdbtnIncorrectOrders.setBounds(159, 405, 149, 23);
 		frame.getContentPane().add(rdbtnIncorrectOrders);
 		
 		
 		JRadioButton rdbtnConfirmed = new JRadioButton("confirmed");
+		rdbtnConfirmed.setSelected(false);
 		rdbtnConfirmed.setBackground(UIManager.getColor("Button.highlight"));
-		rdbtnConfirmed.setBounds(10, 405, 89, 23);
+		rdbtnConfirmed.setBounds(10, 405, 173, 23);
 		frame.getContentPane().add(rdbtnConfirmed);
 		
 		textField = new JTextField();
+		PaymentGUI  pay = new PaymentGUI();
+		textField.setText(pay.toString());
+		textField.setEditable(false);
 		textField.setBounds(54, 366, 159, 23);
-		frame.getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		
+		textPane.setEditable(false);
+		frame.getContentPane().add(textField);
 		
 		JRadioButton rdbtnExpress = new JRadioButton("express");
 		rdbtnExpress.setBackground(Color.WHITE);
-		rdbtnExpress.setBounds(101, 323, 149, 23);
+		rdbtnExpress.setBounds(159, 323, 149, 23);
 		frame.getContentPane().add(rdbtnExpress);
 		
 		JLabel lblPrice = new JLabel("Price");
@@ -99,7 +107,7 @@ public class ShippingGUI extends ShoppingGUI{
 		
 		JRadioButton rdbtnRegisterd = new JRadioButton("Registerd");
 		rdbtnRegisterd.setBackground(Color.WHITE);
-		rdbtnRegisterd.setBounds(10, 323, 80, 23);
+		rdbtnRegisterd.setBounds(10, 323, 118, 23);
 		frame.getContentPane().add(rdbtnRegisterd);
 		JButton btnProceeding = new JButton("Proceeding..");
 		btnProceeding.addActionListener(new ActionListener() {
@@ -107,6 +115,8 @@ public class ShippingGUI extends ShoppingGUI{
 			public void actionPerformed(ActionEvent e) {
 			if(rdbtnConfirmed.isSelected()){
 				frame.setVisible(false);
+				Main main = new Main();
+				main.frame.setVisible(true);
 				
 				
 				
@@ -142,8 +152,29 @@ public class ShippingGUI extends ShoppingGUI{
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(ShippingGUI.class.getResource("/image/ShippingBG.jpg")));
-		label.setBounds(0, 0, 747, 490);
+		label.setBounds(0, 0, 747, 501);
+		
+		
+		JButton btnCheckout = new JButton("Checkout");
+		btnCheckout.setBackground(Color.WHITE);
+		frame.getContentPane().add(btnCheckout);
+		btnCheckout.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+				
+				String text = ("Total price exclude shipping is " + pay.toString() + " bahts. \n");
+				if(rdbtnRegisterd.isSelected() && rdbtnConfirmed.isSelected()){
+					String total = String.format("\nTotal cost is %s", (pay.sum()+100));
+					textPane.setText(text + "shipping price is 100 bahts" + total);
+				}else if(rdbtnExpress.isSelected()  && rdbtnConfirmed.isSelected()){
+					String total2 = String.format("\nTotal cost is %s", (pay.sum()+350));
+					textPane.setText(text + "shipping price is 350 bahts"+ total2);
+				}
+			}
+		});
+		btnCheckout.setBounds(127, 453, 117, 29);
 		frame.getContentPane().add(label);
+		
 		
 	}
 }

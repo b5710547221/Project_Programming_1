@@ -55,9 +55,13 @@ public class Administrator {
 		JLabel lblStoreOwner = new JLabel("Store Owner");
 		lblStoreOwner.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblStoreOwner.setBounds(28, 125, 148, 15);
+		lblStoreOwner.setText("Warat N.");
+		lblStoreOwner.setEnabled(false);
 		frame.getContentPane().add(lblStoreOwner);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setText("I'm CEO of this Japanese Restaurant ");
+		textArea.setEditable(false);
 		textArea.setBackground(UIManager.getColor("Button.background"));
 		textArea.setBounds(122, 86, 384, 95);
 		frame.getContentPane().add(textArea);
@@ -67,6 +71,7 @@ public class Administrator {
 		btnAddMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			frame.setVisible(false);
+			
 			Add_remove_product add = new Add_remove_product();
 			add.frame.setVisible(true);
 			}
@@ -78,6 +83,10 @@ public class Administrator {
 		btnRemoveMenu.setIcon(new ImageIcon(Administrator.class.getResource("/image/RemoveBtn.jpg")));
 		btnRemoveMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				
+				Add_remove_product add = new Add_remove_product();
+				add.frame.setVisible(true);
 			}
 		});
 		btnRemoveMenu.setBounds(291, 306, 148, 39);
@@ -94,6 +103,7 @@ public class Administrator {
 		frame.getContentPane().add(comboBox);
 		
 		textField = new JTextField();
+		
 		textField.setBackground(UIManager.getColor("Button.background"));
 		textField.setBounds(206, 246, 156, 30);
 		frame.getContentPane().add(textField);
@@ -104,6 +114,8 @@ public class Administrator {
 		frame.getContentPane().add(lblEnter);
 		
 		JTextPane textPane = new JTextPane();
+		textPane.setText("Not match ! Database in construction");
+		textPane.setEditable(false);
 		textPane.setBackground(UIManager.getColor("Button.background"));
 		textPane.setBounds(146, 377, 384, 39);
 		frame.getContentPane().add(textPane);

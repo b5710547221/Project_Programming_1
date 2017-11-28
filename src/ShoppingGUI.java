@@ -26,6 +26,7 @@ import javax.swing.JComboBox;
 
 public class ShoppingGUI extends JList<Object> {
 
+	public static PaymentGUI pay;
 	public JFrame frmSushiBarkasetsart;
 	public JTextField sal_button;
 	public JTextField tuna_botton;
@@ -49,6 +50,7 @@ public class ShoppingGUI extends JList<Object> {
 	public String tuna2 = "";
 	public String tea = "";
 	public String text = "";
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -96,7 +98,6 @@ public class ShoppingGUI extends JList<Object> {
 		tuna_botton = new JTextField();
 		tuna_botton.setText("0");
 		tuna = "Tuna sushi = " + tuna_botton.getText();
-		
 
 		tuna_botton.setColumns(10);
 		tuna_botton.setBounds(386, 223, 56, 19);
@@ -105,7 +106,6 @@ public class ShoppingGUI extends JList<Object> {
 		salmon_uzu_button = new JTextField();
 		salmon_uzu_button.setText("0");
 		sal2 = "Salmon usuzukuri = " + salmon_uzu_button.getText();
-		
 
 		salmon_uzu_button.setColumns(10);
 		salmon_uzu_button.setBounds(614, 223, 56, 19);
@@ -189,7 +189,7 @@ public class ShoppingGUI extends JList<Object> {
 			public void actionPerformed(ActionEvent e) {
 				tuna = "Tuna sushi = " + tuna_botton.getText();
 				text += tuna + "\n";
-				// tuna_botton.setText(tuna_botton.getText());
+
 			}
 		});
 		order_tuna.setBounds(259, 221, 106, 26);
@@ -201,7 +201,7 @@ public class ShoppingGUI extends JList<Object> {
 			public void actionPerformed(ActionEvent e) {
 				sal2 = "Salmon usuzukuri = " + salmon_uzu_button.getText();
 				text += sal2 + "\n";
-				// salmon_uzu_button.setText(salmon_uzu_button.getText());
+
 			}
 		});
 		order_sal_uzu.setBounds(498, 221, 106, 26);
@@ -214,7 +214,7 @@ public class ShoppingGUI extends JList<Object> {
 
 				tea = "Green tea = " + green_tea_button.getText();
 				text += tea + "\n";
-				// green_tea_button.setText(green_tea_button.getText());
+
 			}
 		});
 		order_greentea.setBounds(259, 396, 106, 26);
@@ -254,9 +254,8 @@ public class ShoppingGUI extends JList<Object> {
 		order_sal = new JButton("");
 		order_sal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sal = "salmon sushi = " + sal_button.getText();
+				sal = "Salmon sushi = " + sal_button.getText();
 				text += sal + "\n";
-				// sal_button.setText(sal_button.getText());
 
 			}
 		});
@@ -267,9 +266,9 @@ public class ShoppingGUI extends JList<Object> {
 		order_tuna_uzu = new JButton("");
 		order_tuna_uzu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tuna2 = "Tuna uzusukuri  = " + tuna_uzu_botton.getText();
+				tuna2 = "\nTuna uzusukuri  = " + tuna_uzu_botton.getText();
 				text += tuna2 + "\n";
-				// tuna_uzu_botton.setText(tuna_uzu_botton.getText());
+
 			}
 		});
 		order_tuna_uzu.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/animated-order-now-button.jpg")));
@@ -284,7 +283,7 @@ public class ShoppingGUI extends JList<Object> {
 
 		JComboBox category = new JComboBox();
 		extra_button = new JTextField();
-		extra_button.setBounds(35, 470, 88, 26);
+		extra_button.setBounds(137, 470, 116, 26);
 		frmSushiBarkasetsart.getContentPane().add(extra_button);
 		extra_button.setColumns(10);
 
@@ -295,8 +294,11 @@ public class ShoppingGUI extends JList<Object> {
 		orderExtraProduct = new JButton("Order extra Product");
 		orderExtraProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				text += "Extra " + category.getSelectedItem() + " = " + extra_button.getText();
-				extra_button.setText(extra_button.getText());
+				if (!textField.getText().equals(null)) {
+					text += "Extra " + category.getSelectedItem() + " = " + extra_button.getText()
+							+ "\nprice of this disk = " + textField.getText() + " Baht.";
+					text += "\nPlease add only one new menu";
+				}
 			}
 		});
 		orderExtraProduct.setBounds(35, 433, 181, 25);
@@ -306,13 +308,14 @@ public class ShoppingGUI extends JList<Object> {
 		payOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmSushiBarkasetsart.setVisible(false);
-				PaymentGUI pay = new PaymentGUI();
+				PaymentGUI.setDebt_menu(Integer.parseInt(sal_button.getText()) * 25);
+				PaymentGUI.setDebt_menu(Integer.parseInt(tuna_botton.getText()) * 30);
+				PaymentGUI.setDebt_menu(Integer.parseInt(salmon_uzu_button.getText()) * 169);
+				PaymentGUI.setDebt_menu(Integer.parseInt(tuna_uzu_botton.getText()) * 20);
+				PaymentGUI.setDebt_menu(Integer.parseInt(green_tea_button.getText()) * 20);
+				PaymentGUI.setDebt_menu(Integer.parseInt(textField.getText()) * 1);
+				pay = new PaymentGUI();
 				pay.frame.setVisible(true);
-				pay.setDebt_menu(0, Integer.parseInt(sal_button.getText()) * 25);
-				// pay.setDebt_menu(0,Integer.parseInt(sal_button.getText())*30);
-				// pay.setDebt_menu(0,Integer.parseInt(sal_button.getText())*169);
-				// pay.setDebt_menu(0,Integer.parseInt(sal_button.getText())*20);
-				// pay.setDebt_menu(0,Integer.parseInt(sal_button.getText())*20);
 
 			}
 		});
@@ -328,6 +331,19 @@ public class ShoppingGUI extends JList<Object> {
 		check_status.setBounds(279, 484, 169, 25);
 		frmSushiBarkasetsart.getContentPane().add(check_status);
 
-	}
+		JLabel lblNewLabel_1 = new JLabel("Food name ");
+		lblNewLabel_1.setBounds(35, 476, 105, 16);
+		frmSushiBarkasetsart.getContentPane().add(lblNewLabel_1);
 
+		JLabel lblPrice = new JLabel("Price");
+		lblPrice.setBounds(35, 515, 61, 16);
+		frmSushiBarkasetsart.getContentPane().add(lblPrice);
+
+		textField = new JTextField();
+		textField.setText("0");
+		textField.setBounds(137, 510, 116, 26);
+		frmSushiBarkasetsart.getContentPane().add(textField);
+		textField.setColumns(10);
+
+	}
 }

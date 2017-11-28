@@ -7,24 +7,26 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import java.awt.Font;
 
-public class PaymentGUI {
+public class PaymentGUI extends ShoppingGUI {
 
 	public JFrame frame;
 
-	private static  int[] debt_menu;
+	private static ArrayList<Integer> debt_menu = new ArrayList<Integer>();
 	private static PaymentGUI window;
+	private static int extraPrice = 0;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		System.out.println(sum() + "");
+	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -41,7 +43,6 @@ public class PaymentGUI {
 	 * Create the application.
 	 */
 	public PaymentGUI() {
-		debt_menu = new int[5];
 		initialize();
 
 	}
@@ -64,10 +65,14 @@ public class PaymentGUI {
 		JTextPane textPane = new JTextPane();
 		textPane.setBackground(UIManager.getColor("CheckBox.background"));
 		textPane.setBounds(41, 315, 769, 132);
-
-		textPane.setText("Total price  = " + this.toString() + "\nSalmon price is " + getDebt_menu(0) + "\nTuna price is "
-				+ getDebt_menu(1) + "\nSalmon Uzu price is " + getDebt_menu(2) + "\nTuna uzu price is " + getDebt_menu(3)
-				+ "\nGreen tea price is " + getDebt_menu(4));
+		int i = 5;
+		while (i < debt_menu.size()) {
+			textPane.setText("Total price  = " + this.toString() + "\nSalmon price is " + getDebt_menu(0)
+					+ "\nTuna price is " + getDebt_menu(1) + "\nSalmon Uzu price is " + getDebt_menu(2)
+					+ "\nTuna uzu price is " + getDebt_menu(3) + "\nGreen tea price is " + getDebt_menu(4)
+					+ "\nOther food price is " + getDebt_menu_extra(i));
+			i++;
+		}
 		textPane.setEditable(false);
 		frame.getContentPane().add(textPane);
 
@@ -96,22 +101,28 @@ public class PaymentGUI {
 		this.frame = frame;
 	}
 
-	
-	
-
-	public  static int getDebt_menu(int i) {
-		return debt_menu[i];
+	public static int getDebt_menu(int i) {
+		return debt_menu.get(i);
 	}
 
-	public static void setDebt_menu(int debt,int value) {
-		PaymentGUI.debt_menu[debt] = value;
-	}
+	public static void setDebt_menu(int value) {
+		PaymentGUI.debt_menu.add(value);
 
+	}
 	
 
-	public static int sum() {;
+	public static int getDebt_menu_extra(int i) {
+		
+		if (i > 4) {
+			extraPrice += debt_menu.get(i);
+		}
+		return extraPrice;
+	}
+
+	public int sum() {
+		;
 		int sum = 0;
-		for(int i = 0 ;i<debt_menu.length;i++){
+		for (int i = 0; i < debt_menu.size(); i++) {
 			sum += getDebt_menu(i);
 		}
 		return sum;

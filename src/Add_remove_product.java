@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -58,20 +60,36 @@ public class Add_remove_product {
 		lblNewLabel.setBounds(142, 213, 168, 15);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JButton btnAdd = new JButton("");
+		JButton btnAdd = new JButton("add");
 		btnAdd.setIcon(new ImageIcon(Add_remove_product.class.getResource("/image/addBtn.jpg")));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JDialog prompt = new JDialog();
+				JLabel msg = new JLabel("Add product "+ textField.getText());
+				msg.setBounds(50, 50, 80, 50);
+				msg.setSize(100, 30);
+				prompt.setVisible(true);
+				prompt.setContentPane(msg);
+				prompt.setBounds(231, 50, 149, 23);
+				prompt.setSize(300, 300);
 			}
 		});
 		
 		btnAdd.setBounds(126, 288, 160, 52);
 		frame.getContentPane().add(btnAdd);
 		
-		JButton btnRemove = new JButton("");
+		JButton btnRemove = new JButton("remove");
 		btnRemove.setIcon(new ImageIcon(Add_remove_product.class.getResource("/image/RemoveBtn.jpg")));
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JDialog prompt = new JDialog();
+				JLabel msg = new JLabel("Remove product "+ textField.getText());
+				msg.setBounds(50, 50, 80, 50);
+				msg.setSize(100, 30);
+				prompt.setVisible(true);
+				prompt.setContentPane(msg);
+				prompt.setBounds(231, 50, 149, 23);
+				prompt.setSize(300, 300);
 			}
 		});
 		btnRemove.setBounds(351, 288, 160, 52);
