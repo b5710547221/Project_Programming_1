@@ -21,7 +21,7 @@ import javax.swing.UIManager;
 public class Store {
 
 	public JFrame frame;
-	private JTextField textField;
+	private JTextField enterItem;
     public  ArrayList<String> product = new ArrayList<String>();
 	/**
 	 * Launch the application.
@@ -60,43 +60,43 @@ public class Store {
 		lblStockOfBar.setBounds(10, 105, 193, 15);
 		frame.getContentPane().add(lblStockOfBar);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBackground(UIManager.getColor("Button.background"));
+		JTextArea menuSystem = new JTextArea();
+		menuSystem.setBackground(UIManager.getColor("Button.background"));
 		product.add("Salmon_sushi_25_bahts");
 		product.add("Tuna_sushi_30_bahts");
 		product.add("Salmon_usuzukuri_169_bahts");
 		product.add("Tuna_usuzukuri_179_bahts");
 		product.add("Green_tea_20_bahts");
 		
-		textArea.setText(product.get(0) +"\n"+product.get(1) +"\n"+product.get(2) +"\n"+product.get(3) +"\n"+product.get(4) +"\n");
-		textArea.setBounds(10, 131, 207, 217);
-		frame.getContentPane().add(textArea);
+		menuSystem.setText(product.get(0) +"\n"+product.get(1) +"\n"+product.get(2) +"\n"+product.get(3) +"\n"+product.get(4) +"\n");
+		menuSystem.setBounds(10, 131, 207, 217);
+		frame.getContentPane().add(menuSystem);
 		
 		JLabel lblSearchBy = new JLabel("Search by");
 		lblSearchBy.setBounds(265, 143, 70, 15);
 		frame.getContentPane().add(lblSearchBy);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.addItem("Price");
-		comboBox.addItem("Promotion");
-		comboBox.setBounds(332, 138, 171, 24);
-		frame.getContentPane().add(comboBox);
+		JComboBox search = new JComboBox();
+		search.addItem("Price");
+		search.addItem("Promotion");
+		search.setBounds(332, 138, 171, 24);
+		frame.getContentPane().add(search);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setText("Database in construction!");
-		textPane.setEditable(false);
-		textPane.setBackground(UIManager.getColor("Button.background"));
-		textPane.setBounds(332, 233, 276, 42);
-		frame.getContentPane().add(textPane);
+		JTextPane showDialog = new JTextPane();
+		showDialog.setText("Database in construction!");
+		showDialog.setEditable(false);
+		showDialog.setBackground(UIManager.getColor("Button.background"));
+		showDialog.setBounds(332, 233, 276, 42);
+		frame.getContentPane().add(showDialog);
 		
 		JLabel lblEnter = new JLabel("Enter");
 		lblEnter.setBounds(283, 188, 70, 15);
 		frame.getContentPane().add(lblEnter);
 		
-		textField = new JTextField();
-		textField.setBounds(332, 183, 171, 24);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		enterItem = new JTextField();
+		enterItem.setBounds(332, 183, 171, 24);
+		frame.getContentPane().add(enterItem);
+		enterItem.setColumns(10);
 		
 		JLabel lblShowBelow = new JLabel("Show below");
 		lblShowBelow.setBounds(251, 248, 92, 15);
@@ -158,18 +158,6 @@ public class Store {
 		btnProfit.setBounds(446, 359, 117, 25);
 		frame.getContentPane().add(btnProfit);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(92, 395, 110, 30);
-		frame.getContentPane().add(textArea_1);
-		
-		JTextArea textArea_2 = new JTextArea();
-		textArea_2.setBounds(265, 395, 117, 30);
-		frame.getContentPane().add(textArea_2);
-		
-		JTextArea textArea_3 = new JTextArea();
-		textArea_3.setBounds(446, 395, 110, 30);
-		frame.getContentPane().add(textArea_3);
-		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -193,9 +181,9 @@ public class Store {
 		btnAdmins.setBounds(521, 456, 117, 30);
 		frame.getContentPane().add(btnAdmins);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Store.class.getResource("/image/stroeBG.jpg")));
-		label.setBounds(0, 0, 659, 547);
-		frame.getContentPane().add(label);
+		JLabel bg = new JLabel("");
+		bg.setIcon(new ImageIcon(Store.class.getResource("/image/stroeBG.jpg")));
+		bg.setBounds(0, 0, 669, 525);
+		frame.getContentPane().add(bg);
 	}
 }

@@ -62,19 +62,19 @@ public class PaymentGUI extends ShoppingGUI {
 		lblTotalDept.setBounds(31, 275, 134, 33);
 		frame.getContentPane().add(lblTotalDept);
 
-		JTextPane textPane = new JTextPane();
-		textPane.setBackground(UIManager.getColor("CheckBox.background"));
-		textPane.setBounds(41, 315, 769, 132);
+		JTextPane debt = new JTextPane();
+		debt.setBackground(UIManager.getColor("CheckBox.background"));
+		debt.setBounds(41, 315, 769, 132);
 		int i = 5;
 		while (i < debt_menu.size()) {
-			textPane.setText("Total price  = " + this.toString() + "\nSalmon price is " + getDebt_menu(0)
+			debt.setText("Total price  = " + this.toString() + "\nSalmon price is " + getDebt_menu(0)
 					+ "\nTuna price is " + getDebt_menu(1) + "\nSalmon Uzu price is " + getDebt_menu(2)
 					+ "\nTuna uzu price is " + getDebt_menu(3) + "\nGreen tea price is " + getDebt_menu(4)
 					+ "\nOther food price is " + getDebt_menu_extra(i));
 			i++;
 		}
-		textPane.setEditable(false);
-		frame.getContentPane().add(textPane);
+		debt.setEditable(false);
+		frame.getContentPane().add(debt);
 
 		JButton btnBack = new JButton("Proceed");
 		btnBack.addActionListener(new ActionListener() {
@@ -87,10 +87,10 @@ public class PaymentGUI extends ShoppingGUI {
 		btnBack.setBounds(31, 448, 117, 25);
 		frame.getContentPane().add(btnBack);
 
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(PaymentGUI.class.getResource("/image/PaymenBG.jpg")));
-		label.setBounds(0, 0, 810, 494);
-		frame.getContentPane().add(label);
+		JLabel bg = new JLabel("");
+		bg.setIcon(new ImageIcon(PaymentGUI.class.getResource("/image/PaymenBG.jpg")));
+		bg.setBounds(0, 0, 810, 494);
+		frame.getContentPane().add(bg);
 	}
 
 	public JFrame getFrame() {

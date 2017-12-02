@@ -18,7 +18,7 @@ import java.awt.Font;
 public class Administrator {
 
 	JFrame frame;
-	private JTextField textField;
+	private JTextField input;
 
 	/**
 	 * Launch the application.
@@ -59,12 +59,12 @@ public class Administrator {
 		lblStoreOwner.setEnabled(false);
 		frame.getContentPane().add(lblStoreOwner);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setText("I'm CEO of this Japanese Restaurant ");
-		textArea.setEditable(false);
-		textArea.setBackground(UIManager.getColor("Button.background"));
-		textArea.setBounds(122, 86, 384, 95);
-		frame.getContentPane().add(textArea);
+		JTextArea detailAuth = new JTextArea();
+		detailAuth.setText("I'm CEO of this Japanese Restaurant ");
+		detailAuth.setEditable(false);
+		detailAuth.setBackground(UIManager.getColor("Button.background"));
+		detailAuth.setBounds(122, 86, 384, 95);
+		frame.getContentPane().add(detailAuth);
 		
 		JButton btnAddMenu = new JButton("");
 		btnAddMenu.setIcon(new ImageIcon(Administrator.class.getResource("/image/addBtn.jpg")));
@@ -96,29 +96,29 @@ public class Administrator {
 		lblSearchMenuBy.setBounds(98, 209, 148, 15);
 		frame.getContentPane().add(lblSearchMenuBy);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.addItem("Price");
-		comboBox.addItem("Promotion");
-		comboBox.setBounds(206, 204, 156, 24);
-		frame.getContentPane().add(comboBox);
+		JComboBox search = new JComboBox();
+		search.addItem("Price");
+		search.addItem("Promotion");
+		search.setBounds(206, 204, 156, 24);
+		frame.getContentPane().add(search);
 		
-		textField = new JTextField();
+		input = new JTextField();
 		
-		textField.setBackground(UIManager.getColor("Button.background"));
-		textField.setBounds(206, 246, 156, 30);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		input.setBackground(UIManager.getColor("Button.background"));
+		input.setBounds(206, 246, 156, 30);
+		frame.getContentPane().add(input);
+		input.setColumns(10);
 		
 		JLabel lblEnter = new JLabel("Enter ");
 		lblEnter.setBounds(142, 254, 70, 15);
 		frame.getContentPane().add(lblEnter);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setText("Not match ! Database in construction");
-		textPane.setEditable(false);
-		textPane.setBackground(UIManager.getColor("Button.background"));
-		textPane.setBounds(146, 377, 384, 39);
-		frame.getContentPane().add(textPane);
+		JTextPane log = new JTextPane();
+		log.setText("Not match ! Database in construction");
+		log.setEditable(false);
+		log.setBackground(UIManager.getColor("Button.background"));
+		log.setBounds(146, 377, 384, 39);
+		frame.getContentPane().add(log);
 		
 		JLabel lblViewSearchOrder = new JLabel("View search order");
 		lblViewSearchOrder.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -136,9 +136,14 @@ public class Administrator {
 		btnBack.setBounds(10, 442, 117, 25);
 		frame.getContentPane().add(btnBack);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Administrator.class.getResource("/image/adminBG.jpg")));
-		label.setBounds(0, -13, 593, 536);
-		frame.getContentPane().add(label);
+		JLabel bg = new JLabel("");
+		bg.setIcon(new ImageIcon(Administrator.class.getResource("/image/adminBG.jpg")));
+		bg.setBounds(0, 0, 556, 495);
+		
+		JButton btnSearch = new JButton("search");
+		btnSearch.setBounds(389, 248, 117, 29);
+		frame.getContentPane().add(btnSearch);
+		frame.getContentPane().add(bg);
+		
 	}
 }

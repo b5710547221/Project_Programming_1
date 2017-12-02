@@ -10,15 +10,21 @@ import javax.swing.JDialog;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
 public class Add_remove {
 
 	public JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField name;
+	private JTextField lastName;
+	private JTextField age;
 
 	/**
 	 * Launch the application.
@@ -51,36 +57,36 @@ public class Add_remove {
 		frame.setBounds(100, 100, 559, 445);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		Customer cus = new Customer();
+		
 
-		textField = new JTextField("name");
+		name = new JTextField("name");
 
-		textField.setBounds(309, 47, 224, 19);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		if (!cus.getName().equals(null)) {
-			textField.setText(cus.getName());
+		name.setBounds(309, 47, 224, 19);
+		frame.getContentPane().add(name);
+		name.setColumns(10);
+		if (!Customer.getName().equals(null)) {
+			name.setText(Customer.getName());
 		} else {
-            textField.setText("");
+            name.setText("");
 		}
-		textField.setEditable(false);
+		name.setEditable(false);
 
-		textField_1 = new JTextField("lastname");
-		textField_1.setColumns(10);
-		if (!cus.getLastName().equals(null)) {
-			textField_1.setText(cus.getLastName());
+		lastName = new JTextField("lastname");
+		lastName.setColumns(10);
+		if (!Customer.getLastName().equals(null)) {
+			lastName.setText(Customer.getLastName());
 		} else {
-            textField.setText("");
+            name.setText("");
 		}
 		
-		textField_1.setEditable(false);
-		textField_1.setBounds(309, 77, 224, 19);
-		frame.getContentPane().add(textField_1);
+		lastName.setEditable(false);
+		lastName.setBounds(309, 77, 224, 19);
+		frame.getContentPane().add(lastName);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(309, 107, 85, 19);
-		frame.getContentPane().add(textField_2);
+		age = new JTextField();
+		age.setColumns(10);
+		age.setBounds(309, 107, 85, 19);
+		frame.getContentPane().add(age);
 
 		JLabel lblName = new JLabel("Name");
 		lblName.setBounds(247, 50, 70, 15);
@@ -103,14 +109,23 @@ public class Add_remove {
 		rdbtnM.setBounds(309, 133, 53, 23);
 		frame.getContentPane().add(rdbtnM);
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("F");
-		rdbtnNewRadioButton.setBackground(Color.WHITE);
-		rdbtnNewRadioButton.setBounds(374, 134, 42, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton);
-
+		JRadioButton rdbtnF = new JRadioButton("F");
+		rdbtnF.setBackground(Color.WHITE);
+		rdbtnF.setBounds(374, 134, 42, 23);
+		frame.getContentPane().add(rdbtnF);
+         
 		JButton btnAddToDatabase = new JButton("add");
 		btnAddToDatabase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+                String gender ="";
+				if(rdbtnM.isSelected()){
+                	gender =  "M";
+                }else if(rdbtnF.isSelected()){
+                	gender = "F";
+                }
+
+                addMember(name.getText(),(age.getText()),gender);
+				
 				JDialog prompt = new JDialog();
 				JLabel msg = new JLabel("Add!");
 				msg.setBounds(50, 50, 80, 50);
@@ -140,6 +155,14 @@ public class Add_remove {
 		JButton btnRemoveThisMember = new JButton("");
 		btnRemoveThisMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				 String gender ="";
+					if(rdbtnM.isSelected()){
+	                	gender =  "M";
+	                }else if(rdbtnF.isSelected()){
+	                	gender = "F";
+	                }
+
+	                removeMember(name.getText(),(age.getText()),gender);
 				JDialog prompt2 = new JDialog();
 				JLabel msg2 = new JLabel("Remove!");
 				msg2.setBounds(50, 50, 80, 50);
@@ -167,9 +190,62 @@ public class Add_remove {
 		btnSearchDatabase.setBounds(400, 370, 133, 25);
 		frame.getContentPane().add(btnSearchDatabase);
 
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Add_remove.class.getResource("/image/AddBg.jpg")));
-		label.setBounds(0, 0, 543, 406);
-		frame.getContentPane().add(label);
+		JLabel bg = new JLabel("");
+		bg.setIcon(new ImageIcon(Add_remove.class.getResource("/image/AddBg.jpg")));
+		bg.setBounds(0, 0, 543, 406);
+		frame.getContentPane().add(bg);
+		
 	}
+	public static void addMember(String member_name,String age, String gender){
+		String SQL = "INSERT INTO public.member (member_name,age,gender) "
+				+ "VALUES(?,?,?);";
+		 try (Connection conn = connect();
+	                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	 
+	            pstmt.setString(1, member_name);
+	            pstmt.setString(2, age);
+	            pstmt.setString(3, gender);
+	            ResultSet rs = pstmt.executeQuery();
+	            System.out.println("insert successful!!");
+	            conn.close();
+	        } catch (SQLException ex) {
+	        	System.out.println("Connection Failed! Check output console");
+				ex.printStackTrace();
+	            System.out.println(ex.getMessage());
+	            return;
+	        }
+	}
+	public static void removeMember(String member_name,String age, String gender){
+		String SQL = "DELETE FROM public.member WHERE member_name = ?,age = ? ,gender = ? ;";
+		 try (Connection conn = connect();
+	                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	 
+	            pstmt.setString(1, member_name);
+	            pstmt.setString(2, age);
+	            pstmt.setString(3, gender);
+	            ResultSet rs = pstmt.executeQuery();
+	            System.out.println("delete successful!!");
+	            conn.close();
+	        } catch (SQLException ex) {
+	        	System.out.println("Connection Failed! Check output console");
+				ex.printStackTrace();
+	            System.out.println(ex.getMessage());
+	            return;
+	        }
+	}
+	public static Connection connect() throws SQLException {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("Where is your PostgreSQL JDBC Driver? "
+					+ "Include in your library path!");
+			e1.printStackTrace();
+			
+		}
+		
+		//System.out.println("Success! connection");
+        return DriverManager.getConnection("jdbc:postgresql:oop_1_database", "tbap",
+				"ionay999");
+    }
 }

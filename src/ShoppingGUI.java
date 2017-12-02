@@ -29,9 +29,9 @@ public class ShoppingGUI extends JList<Object> {
 	public static PaymentGUI pay;
 	public JFrame frmSushiBarkasetsart;
 	public JTextField sal_button;
-	public JTextField tuna_botton;
+	public JTextField tuna_button;
 	public JTextField salmon_uzu_button;
-	public JTextField tuna_uzu_botton;
+	public JTextField tuna_uzu_button;
 	public JTextField green_tea_button;
 	public JTextField extra_button;
 
@@ -50,7 +50,7 @@ public class ShoppingGUI extends JList<Object> {
 	public String tuna2 = "";
 	public String tea = "";
 	public String text = "";
-	private JTextField textField;
+	private JTextField priceExtra;
 
 	/**
 	 * Launch the application.
@@ -95,13 +95,13 @@ public class ShoppingGUI extends JList<Object> {
 		frmSushiBarkasetsart.getContentPane().add(sal_button);
 		sal_button.setColumns(10);
 
-		tuna_botton = new JTextField();
-		tuna_botton.setText("0");
-		tuna = "Tuna sushi = " + tuna_botton.getText();
+		tuna_button = new JTextField();
+		tuna_button.setText("0");
+		tuna = "Tuna sushi = " + tuna_button.getText();
 
-		tuna_botton.setColumns(10);
-		tuna_botton.setBounds(386, 223, 56, 19);
-		frmSushiBarkasetsart.getContentPane().add(tuna_botton);
+		tuna_button.setColumns(10);
+		tuna_button.setBounds(386, 223, 56, 19);
+		frmSushiBarkasetsart.getContentPane().add(tuna_button);
 
 		salmon_uzu_button = new JTextField();
 		salmon_uzu_button.setText("0");
@@ -111,14 +111,14 @@ public class ShoppingGUI extends JList<Object> {
 		salmon_uzu_button.setBounds(614, 223, 56, 19);
 		frmSushiBarkasetsart.getContentPane().add(salmon_uzu_button);
 
-		tuna_uzu_botton = new JTextField();
-		tuna_uzu_botton.setText("0");
-		tuna2 = "tuna usuzukuri = " + tuna_uzu_botton.getText();
+		tuna_uzu_button = new JTextField();
+		tuna_uzu_button.setText("0");
+		tuna2 = "tuna usuzukuri = " + tuna_uzu_button.getText();
 		;
 
-		tuna_uzu_botton.setColumns(10);
-		tuna_uzu_botton.setBounds(148, 398, 56, 19);
-		frmSushiBarkasetsart.getContentPane().add(tuna_uzu_botton);
+		tuna_uzu_button.setColumns(10);
+		tuna_uzu_button.setBounds(148, 398, 56, 19);
+		frmSushiBarkasetsart.getContentPane().add(tuna_uzu_button);
 
 		green_tea_button = new JTextField();
 		green_tea_button.setText("0");
@@ -137,15 +137,15 @@ public class ShoppingGUI extends JList<Object> {
 		model.addElement(tuna2);
 		// create JList with model - model
 		JList<String> list = new JList<String>(model);
-		JScrollPane textPane = new JScrollPane(list);
-		textPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		textPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		JScrollPane show = new JScrollPane(list);
+		show.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		show.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		JTextPane show_text = new JTextPane();
-		textPane.setViewportView(show_text);
+		show.setViewportView(show_text);
 
-		textPane.setBounds(465, 270, 284, 203);
+		show.setBounds(465, 270, 284, 203);
 
-		frmSushiBarkasetsart.getContentPane().add(textPane);
+		frmSushiBarkasetsart.getContentPane().add(show);
 
 		JLabel lblSushiSalmon = new JLabel("Sushi Salmon");
 		lblSushiSalmon.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 11));
@@ -187,7 +187,7 @@ public class ShoppingGUI extends JList<Object> {
 		order_tuna.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/animated-order-now-button.jpg")));
 		order_tuna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tuna = "Tuna sushi = " + tuna_botton.getText();
+				tuna = "Tuna sushi = " + tuna_button.getText();
 				text += tuna + "\n";
 
 			}
@@ -199,7 +199,7 @@ public class ShoppingGUI extends JList<Object> {
 		order_sal_uzu.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/animated-order-now-button.jpg")));
 		order_sal_uzu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sal2 = "Salmon usuzukuri = " + salmon_uzu_button.getText();
+				sal2 = "Salmon usuzukuri : " + salmon_uzu_button.getText();
 				text += sal2 + "\n";
 
 			}
@@ -212,7 +212,7 @@ public class ShoppingGUI extends JList<Object> {
 		order_greentea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				tea = "Green tea = " + green_tea_button.getText();
+				tea = "Green tea : " + green_tea_button.getText();
 				text += tea + "\n";
 
 			}
@@ -220,41 +220,41 @@ public class ShoppingGUI extends JList<Object> {
 		order_greentea.setBounds(259, 396, 106, 26);
 		frmSushiBarkasetsart.getContentPane().add(order_greentea);
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/bioweb.jpg")));
-		lblNewLabel.setBounds(34, 137, 106, 78);
-		frmSushiBarkasetsart.getContentPane().add(lblNewLabel);
+		JLabel picSal = new JLabel("");
+		picSal.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/bioweb.jpg")));
+		picSal.setBounds(34, 137, 106, 78);
+		frmSushiBarkasetsart.getContentPane().add(picSal);
 
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/IMG_0122.jpg")));
-		label.setBounds(259, 132, 105, 78);
+		JLabel picTuna = new JLabel("");
+		picTuna.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/IMG_0122.jpg")));
+		picTuna.setBounds(259, 132, 105, 78);
 
-		frmSushiBarkasetsart.getContentPane().add(label);
+		frmSushiBarkasetsart.getContentPane().add(picTuna);
 
-		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/sushi1.jpg")));
-		label_2.setBounds(500, 137, 100, 78);
-		frmSushiBarkasetsart.getContentPane().add(label_2);
+		JLabel picSalUzu = new JLabel("");
+		picSalUzu.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/sushi1.jpg")));
+		picSalUzu.setBounds(500, 137, 100, 78);
+		frmSushiBarkasetsart.getContentPane().add(picSalUzu);
 
-		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/sushi2.jpg")));
-		label_3.setBounds(34, 307, 97, 78);
-		frmSushiBarkasetsart.getContentPane().add(label_3);
+		JLabel picTunaUzu = new JLabel("");
+		picTunaUzu.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/sushi2.jpg")));
+		picTunaUzu.setBounds(34, 307, 97, 78);
+		frmSushiBarkasetsart.getContentPane().add(picTunaUzu);
 
-		JLabel label_4 = new JLabel("");
-		label_4.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/tea1.jpg")));
-		label_4.setBounds(259, 307, 97, 78);
-		frmSushiBarkasetsart.getContentPane().add(label_4);
+		JLabel picGreenTea = new JLabel("");
+		picGreenTea.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/tea1.jpg")));
+		picGreenTea.setBounds(259, 307, 97, 78);
+		frmSushiBarkasetsart.getContentPane().add(picGreenTea);
 
-		JLabel label_5 = new JLabel("");
-		label_5.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/ku1.jpg")));
-		label_5.setBounds(0, -3, 116, 106);
-		frmSushiBarkasetsart.getContentPane().add(label_5);
+		JLabel picKU = new JLabel("");
+		picKU.setIcon(new ImageIcon(ShoppingGUI.class.getResource("/image/ku1.jpg")));
+		picKU.setBounds(0, -3, 116, 106);
+		frmSushiBarkasetsart.getContentPane().add(picKU);
 
 		order_sal = new JButton("");
 		order_sal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sal = "Salmon sushi = " + sal_button.getText();
+				sal = "Salmon sushi : " + sal_button.getText();
 				text += sal + "\n";
 
 			}
@@ -266,7 +266,7 @@ public class ShoppingGUI extends JList<Object> {
 		order_tuna_uzu = new JButton("");
 		order_tuna_uzu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tuna2 = "\nTuna uzusukuri  = " + tuna_uzu_botton.getText();
+				tuna2 = "\nTuna uzusukuri  : " + tuna_uzu_button.getText();
 				text += tuna2 + "\n";
 
 			}
@@ -275,11 +275,11 @@ public class ShoppingGUI extends JList<Object> {
 		order_tuna_uzu.setBounds(35, 395, 106, 26);
 		frmSushiBarkasetsart.getContentPane().add(order_tuna_uzu);
 
-		JLabel label_6 = new JLabel("");
-		label_6.setIcon(new ImageIcon(
+		JLabel banner = new JLabel("");
+		banner.setIcon(new ImageIcon(
 				ShoppingGUI.class.getResource("/image/sushi-cartoon-facebook-cover-timeline-banner-for-fb.jpg")));
-		label_6.setBounds(105, -17, 715, 126);
-		frmSushiBarkasetsart.getContentPane().add(label_6);
+		banner.setBounds(105, -17, 715, 126);
+		frmSushiBarkasetsart.getContentPane().add(banner);
 
 		JComboBox category = new JComboBox();
 		extra_button = new JTextField();
@@ -294,9 +294,9 @@ public class ShoppingGUI extends JList<Object> {
 		orderExtraProduct = new JButton("Order extra Product");
 		orderExtraProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!textField.getText().equals(null)) {
-					text += "Extra " + category.getSelectedItem() + " = " + extra_button.getText()
-							+ "\nprice of this disk = " + textField.getText() + " Baht.";
+				if (!priceExtra.getText().equals(null)) {
+					text += "Extra : " + category.getSelectedItem() + " = " + extra_button.getText()
+							+ "\nprice of this disk : " + priceExtra.getText() + " Baht.";
 					text += "\nPlease add only one new menu";
 				}
 			}
@@ -309,11 +309,11 @@ public class ShoppingGUI extends JList<Object> {
 			public void actionPerformed(ActionEvent e) {
 				frmSushiBarkasetsart.setVisible(false);
 				PaymentGUI.setDebt_menu(Integer.parseInt(sal_button.getText()) * 25);
-				PaymentGUI.setDebt_menu(Integer.parseInt(tuna_botton.getText()) * 30);
+				PaymentGUI.setDebt_menu(Integer.parseInt(tuna_button.getText()) * 30);
 				PaymentGUI.setDebt_menu(Integer.parseInt(salmon_uzu_button.getText()) * 169);
-				PaymentGUI.setDebt_menu(Integer.parseInt(tuna_uzu_botton.getText()) * 20);
+				PaymentGUI.setDebt_menu(Integer.parseInt(tuna_uzu_button.getText()) * 20);
 				PaymentGUI.setDebt_menu(Integer.parseInt(green_tea_button.getText()) * 20);
-				PaymentGUI.setDebt_menu(Integer.parseInt(textField.getText()) * 1);
+				PaymentGUI.setDebt_menu(Integer.parseInt(priceExtra.getText()) * 1);
 				pay = new PaymentGUI();
 				pay.frame.setVisible(true);
 
@@ -331,19 +331,19 @@ public class ShoppingGUI extends JList<Object> {
 		check_status.setBounds(279, 484, 169, 25);
 		frmSushiBarkasetsart.getContentPane().add(check_status);
 
-		JLabel lblNewLabel_1 = new JLabel("Food name ");
-		lblNewLabel_1.setBounds(35, 476, 105, 16);
-		frmSushiBarkasetsart.getContentPane().add(lblNewLabel_1);
+		JLabel extraName = new JLabel("Food name ");
+		extraName.setBounds(35, 476, 105, 16);
+		frmSushiBarkasetsart.getContentPane().add(extraName);
 
 		JLabel lblPrice = new JLabel("Price");
 		lblPrice.setBounds(35, 515, 61, 16);
 		frmSushiBarkasetsart.getContentPane().add(lblPrice);
 
-		textField = new JTextField();
-		textField.setText("0");
-		textField.setBounds(137, 510, 116, 26);
-		frmSushiBarkasetsart.getContentPane().add(textField);
-		textField.setColumns(10);
+		priceExtra = new JTextField();
+		priceExtra.setText("0");
+		priceExtra.setBounds(137, 510, 116, 26);
+		frmSushiBarkasetsart.getContentPane().add(priceExtra);
+		priceExtra.setColumns(10);
 
 	}
 }

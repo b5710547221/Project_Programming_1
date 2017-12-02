@@ -26,6 +26,7 @@ public class Main {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void run() {
 		try {
 
@@ -55,25 +56,25 @@ public class Main {
 
 		frame = new JFrame();
 		frame.setTitle("Kasetsart SUSHI");
-		frame.getContentPane().setBackground(new Color(0, 255, 255));
+		//frame.getContentPane().setBackground(new Color(0, 255, 255));
 		frame.setBounds(100, 100, 758, 559);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton orderButton = new JButton("");
+		orderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ShoppingGUI shop = new ShoppingGUI() ; 
 				shop.run();
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(Main.class.getResource("/image/OrderBtn.jpg")));
-		btnNewButton.setBackground(Color.BLACK);
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBounds(10, 486, 89, 23);
-		frame.getContentPane().add(btnNewButton);
+		orderButton.setIcon(new ImageIcon(Main.class.getResource("/image/OrderBtn.jpg")));
+		orderButton.setBackground(Color.BLACK);
+		orderButton.setForeground(Color.WHITE);
+		orderButton.setBounds(10, 486, 89, 23);
+		frame.getContentPane().add(orderButton);
 		
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton memberButton = new JButton("");
+		memberButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Customer cus = new Customer();
 				cus.frame.setVisible(true);
@@ -82,12 +83,12 @@ public class Main {
 		    
 		    
 		});
-		btnNewButton_1.setIcon(new ImageIcon(Main.class.getResource("/image/MemberBtn.jpg")));
-		btnNewButton_1.setBounds(155, 486, 89, 23);
-		frame.getContentPane().add(btnNewButton_1);
+		memberButton.setIcon(new ImageIcon(Main.class.getResource("/image/MemberBtn.jpg")));
+		memberButton.setBounds(155, 486, 89, 23);
+		frame.getContentPane().add(memberButton);
 		
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton stockButton = new JButton("");
+		stockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				Store stock = new Store();
@@ -95,23 +96,23 @@ public class Main {
 				
 			}
 		});
-		btnNewButton_2.setIcon(new ImageIcon(Main.class.getResource("/image/StockBtn.jpg")));
-		btnNewButton_2.setBounds(300, 486, 89, 23);
-		frame.getContentPane().add(btnNewButton_2);
+		stockButton.setIcon(new ImageIcon(Main.class.getResource("/image/StockBtn.jpg")));
+		stockButton.setBounds(300, 486, 89, 23);
+		frame.getContentPane().add(stockButton);
 		
-		JButton btnNewButton_3 = new JButton("");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton exitButton = new JButton("");
+		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 				
 			}
 		});
-		btnNewButton_3.setIcon(new ImageIcon(Main.class.getResource("/image/ExitBtn.jpg")));
-		btnNewButton_3.setBounds(448, 486, 89, 23);
-		frame.getContentPane().add(btnNewButton_3);
+		exitButton.setIcon(new ImageIcon(Main.class.getResource("/image/ExitBtn.jpg")));
+		exitButton.setBounds(448, 486, 89, 23);
+		frame.getContentPane().add(exitButton);
 		
-		JLabel label = new JLabel("");
-		label.addAncestorListener(new AncestorListener() {
+		JLabel bg = new JLabel("");
+		bg.addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent event) {
 			}
 			public void ancestorMoved(AncestorEvent event) {
@@ -120,10 +121,11 @@ public class Main {
 			frame.dispose();
 			}
 		});
-		label.setForeground(Color.BLACK);
-		label.setIcon(new ImageIcon(Main.class.getResource("/image/bgMain.jpg")));
-		label.setBounds(0, 0, 742, 535);
-		frame.getContentPane().add(label);
+		bg.setForeground(Color.BLACK);
+		bg.setIcon(new ImageIcon(Main.class.getResource("/image/bgMain.jpg")));
+		bg.setBounds(0, 0, 758, 539);
+		
+		frame.getContentPane().add(bg);
 
 	}
 }

@@ -15,8 +15,8 @@ import java.awt.Font;
 public class Customer {
 
 	public JFrame frame;
-	private static JTextField textField;
-	private static JTextField textField_1;
+	private static JTextField name;
+	private static JTextField lastName;
 	
 
 	/**
@@ -61,23 +61,23 @@ public class Customer {
 		lblFindByLastname.setBounds(332, 253, 87, 15);
 		frame.getContentPane().add(lblFindByLastname);
 
-		textField = new JTextField("name");
-		textField.setBounds(422, 208, 257, 19);
-		textField.setText("name");
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		name = new JTextField("name");
+		name.setBounds(422, 208, 257, 19);
+		name.setText("name");
+		frame.getContentPane().add(name);
+		name.setColumns(10);
 
-		textField_1 = new JTextField("lastname");
-		textField_1.setBounds(422, 251, 257, 19);
-		textField_1.setText("lastname");
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		lastName = new JTextField("lastname");
+		lastName.setBounds(422, 251, 257, 19);
+		lastName.setText("lastname");
+		frame.getContentPane().add(lastName);
+		lastName.setColumns(10);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setBackground(SystemColor.control);
-		textArea.setEditable(false);
-		textArea.setBounds(10, 253, 192, 205);
-		frame.getContentPane().add(textArea);
+		JTextArea log = new JTextArea();
+		log.setBackground(SystemColor.control);
+		log.setEditable(false);
+		log.setBounds(10, 253, 192, 205);
+		frame.getContentPane().add(log);
 
 		JButton btnRegister = new JButton("Register");
 		btnRegister.setBackground(SystemColor.text);
@@ -125,17 +125,17 @@ public class Customer {
 		btnBack.setBounds(612, 428, 67, 25);
 		frame.getContentPane().add(btnBack);
 
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Customer.class.getResource("/image/CustomerBanner.jpg")));
-		label.setBounds(0, 0, 774, 475);
-		frame.getContentPane().add(label);
+		JLabel bg = new JLabel("");
+		bg.setIcon(new ImageIcon(Customer.class.getResource("/image/CustomerBanner.jpg")));
+		bg.setBounds(0, 0, 774, 475);
+		frame.getContentPane().add(bg);
 	}
 
-	public  String getName() {
-       return textField.getText();
+	public  static String getName() {
+       return name.getText();
 	}
 
-	public  String getLastName() {
-       return textField_1.getText();
+	public  static String getLastName() {
+       return lastName.getText();
 	}
 }

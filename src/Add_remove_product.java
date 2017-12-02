@@ -16,7 +16,9 @@ import java.awt.Font;
 public class Add_remove_product {
 
 	public JFrame frame;
-	public JTextField textField;
+	public JTextField productField;
+	private JTextField promotion;
+	private JTextField price;
 
 	/**
 	 * Launch the application.
@@ -50,14 +52,14 @@ public class Add_remove_product {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(271, 204, 230, 38);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		productField = new JTextField();
+		productField.setBounds(177, 71, 230, 38);
+		frame.getContentPane().add(productField);
+		productField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Enter Product");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(142, 213, 168, 15);
+		lblNewLabel.setBounds(22, 94, 168, 15);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnAdd = new JButton("add");
@@ -65,7 +67,7 @@ public class Add_remove_product {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JDialog prompt = new JDialog();
-				JLabel msg = new JLabel("Add product "+ textField.getText());
+				JLabel msg = new JLabel("Add product "+ productField.getText());
 				msg.setBounds(50, 50, 80, 50);
 				msg.setSize(100, 30);
 				prompt.setVisible(true);
@@ -83,7 +85,7 @@ public class Add_remove_product {
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JDialog prompt = new JDialog();
-				JLabel msg = new JLabel("Remove product "+ textField.getText());
+				JLabel msg = new JLabel("Remove product "+ productField.getText());
 				msg.setBounds(50, 50, 80, 50);
 				msg.setSize(100, 30);
 				prompt.setVisible(true);
@@ -106,9 +108,31 @@ public class Add_remove_product {
 		btnBack.setBounds(10, 375, 117, 25);
 		frame.getContentPane().add(btnBack);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Add_remove_product.class.getResource("/image/AddProductBG.jpg")));
-		label.setBounds(0, 0, 615, 411);
-		frame.getContentPane().add(label);
+		JLabel bg = new JLabel("");
+		bg.setIcon(new ImageIcon(Add_remove_product.class.getResource("/image/AddProductBG.jpg")));
+		bg.setBounds(0, 0, 615, 411);
+		
+		
+		JLabel lblfoodPrice = new JLabel("Food price");
+		lblfoodPrice.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblfoodPrice.setBounds(24, 144, 150, 25);
+		frame.getContentPane().add(lblfoodPrice);
+		
+		JLabel lblFoodPromotion = new JLabel("Food promotion");
+		lblFoodPromotion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblFoodPromotion.setBounds(22, 209, 141, 25);
+		frame.getContentPane().add(lblFoodPromotion);
+		
+		
+		promotion = new JTextField();
+		promotion.setColumns(10);
+		promotion.setBounds(177, 196, 230, 38);
+		frame.getContentPane().add(promotion);
+		
+		price = new JTextField();
+		price.setColumns(10);
+		price.setBounds(177, 139, 230, 38);
+		frame.getContentPane().add(price);
+		frame.getContentPane().add(bg);
 	}
 }

@@ -21,7 +21,7 @@ import java.awt.Color;
 public class ShippingGUI extends ShoppingGUI{
 
 	public JFrame frame;
-	private JTextField textField;
+	private JTextField price;
 
 	/**
 	 * Launch the application.
@@ -84,16 +84,16 @@ public class ShippingGUI extends ShoppingGUI{
 		rdbtnConfirmed.setBounds(10, 405, 173, 23);
 		frame.getContentPane().add(rdbtnConfirmed);
 		
-		textField = new JTextField();
+		price = new JTextField();
 		PaymentGUI  pay = new PaymentGUI();
-		textField.setText(pay.toString());
-		textField.setEditable(false);
-		textField.setBounds(54, 366, 159, 23);
-		textField.setColumns(10);
+		price.setText(pay.toString());
+		price.setEditable(false);
+		price.setBounds(54, 366, 159, 23);
+		price.setColumns(10);
 		
 		
 		textPane.setEditable(false);
-		frame.getContentPane().add(textField);
+		frame.getContentPane().add(price);
 		
 		JRadioButton rdbtnExpress = new JRadioButton("express");
 		rdbtnExpress.setBackground(Color.WHITE);
@@ -150,9 +150,9 @@ public class ShippingGUI extends ShoppingGUI{
 		btnProceeding.setBounds(566, 386, 118, 23);
 		frame.getContentPane().add(btnProceeding);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(ShippingGUI.class.getResource("/image/ShippingBG.jpg")));
-		label.setBounds(0, 0, 747, 501);
+		JLabel bg = new JLabel("");
+		bg.setIcon(new ImageIcon(ShippingGUI.class.getResource("/image/ShippingBG.jpg")));
+		bg.setBounds(0, 0, 747, 501);
 		
 		
 		JButton btnCheckout = new JButton("Checkout");
@@ -173,7 +173,7 @@ public class ShippingGUI extends ShoppingGUI{
 			}
 		});
 		btnCheckout.setBounds(127, 453, 117, 29);
-		frame.getContentPane().add(label);
+		frame.getContentPane().add(bg);
 		
 		
 	}
