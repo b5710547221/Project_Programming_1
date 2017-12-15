@@ -197,15 +197,16 @@ public class Add_remove {
 		
 	}
 	public static void addMember(String member_name,String age, String gender){
-		String SQL = "INSERT INTO public.member (member_name,age,gender) "
+		String SQL = "INSERT INTO member (member_name,age,gender) "
 				+ "VALUES(?,?,?);";
 		 try (Connection conn = connect();
 	                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	 
 	            pstmt.setString(1, member_name);
-	            pstmt.setString(2, age);
+	            //pstmt.setString(2, age);
+	            pstmt.setInt(2, Integer.parseInt(age));
 	            pstmt.setString(3, gender);
-	            ResultSet rs = pstmt.executeQuery();
+	            int rs = pstmt.executeUpdate();
 	            System.out.println("insert successful!!");
 	            conn.close();
 	        } catch (SQLException ex) {
@@ -216,14 +217,15 @@ public class Add_remove {
 	        }
 	}
 	public static void removeMember(String member_name,String age, String gender){
-		String SQL = "DELETE FROM public.member WHERE member_name = ?,age = ? ,gender = ? ;";
+		String SQL = "DELETE FROM member WHERE member_name = ? AND age = ? AND gender = ?;";
 		 try (Connection conn = connect();
 	                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 	 
 	            pstmt.setString(1, member_name);
-	            pstmt.setString(2, age);
+	            //pstmt.setString(2, age);
+	            pstmt.setInt(2, Integer.parseInt(age));
 	            pstmt.setString(3, gender);
-	            ResultSet rs = pstmt.executeQuery();
+	            int rs = pstmt.executeUpdate();
 	            System.out.println("delete successful!!");
 	            conn.close();
 	        } catch (SQLException ex) {
@@ -245,7 +247,7 @@ public class Add_remove {
 		}
 		
 		//System.out.println("Success! connection");
-        return DriverManager.getConnection("jdbc:postgresql:oop_1_database", "tbap",
+        return DriverManager.getConnection("jdbc:postgresql:postgres", "tbap",
 				"ionay999");
     }
 }

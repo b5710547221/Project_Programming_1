@@ -22,6 +22,9 @@ public class Human_resources {
 	public JFrame frame;
 	private JTextField memInfo;
 	private JPasswordField passwordField;
+	private String name = " ";
+	private String gender = " ";
+	private int age = 0;
 
 	/**
 	 * Launch the application.
@@ -69,21 +72,7 @@ public class Human_resources {
 
 		memInfo = new JTextField();
 		memInfo.setBounds(228, 187, 157, 24);
-		switch (searchMem.getSelectedIndex()) {
-		case 0: {
-
-			break;
-		}
-		case 1: {
-			break;
-		}
-		case 2: {
-			break;
-		}
-		case 3:
-			break;
-		}
-		frame.getContentPane().add(memInfo);
+        frame.getContentPane().add(memInfo);
 		memInfo.setColumns(10);
 
 		JLabel lblEnterInformation = new JLabel("Enter information");
@@ -104,46 +93,81 @@ public class Human_resources {
 		JLabel bg = new JLabel("");
 		bg.setIcon(new ImageIcon(Human_resources.class.getResource("/image/memberBG.jpg")));
 		bg.setBounds(0, 0, 535, 336);
-
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setBounds(235, 230, 254, 86);
+		
 		JButton btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				switch (searchMem.getSelectedIndex()) {
+				case 0: {
+					name = memInfo.getText();
+                    textPane.setText(searchDBByName(name));
+					break;
+				}
+				case 1: {
+					gender = memInfo.getText();
+					textPane.setText(searchDBByGender(gender));
+					break;
+				}
+				case 2: {
+					age = Integer.parseInt(memInfo.getText());
+					textPane.setText(searchDBByAge(age)+"");
+					break;
+				}
+				}
+
+			}
+		});
 		btnSearch.setBounds(418, 186, 117, 29);
 		frame.getContentPane().add(btnSearch);
 
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(235, 230, 254, 86);
+		
 		frame.getContentPane().add(textPane);
 
 		passwordField = new JPasswordField();
 		passwordField.setBounds(259, 310, 10, 26);
 		frame.getContentPane().add(passwordField);
+		
+		
+		JButton btnReset = new JButton("RESET");
+		btnReset.setBounds(10, 301, 117, 29);
+		btnReset.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				resetDB();
+			}
+		});
+		frame.getContentPane().add(btnReset);
 		frame.getContentPane().add(bg);
 	}
 
 	public static String searchDBByName(String member_name) {
-		String SQL = "SELECT member_name ,age ,gender   FROM member WHERE member_name = ?,age = ? ,gender = ?;";
-		String result ="";
+		String SQL = "SELECT member_name    FROM member WHERE member_name = ?;";
+		String result = "";
 		try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 
 			pstmt.setString(1, member_name);
 
 			ResultSet rs = pstmt.executeQuery();
 			result = displayName(rs);
+			
 		} catch (SQLException ex) {
 			System.out.println("Connection Failed! Check output console");
 			ex.printStackTrace();
 			System.out.println(ex.getMessage());
 			return "Not found";
 		}
-		return result;
+		return "This Name is " +result+ " exist";
 	}
 
-	public static String searchDBBy(String gender) {
-		String SQL = "SELECT member_name ,age ,gender   FROM member WHERE member_name = ?,age = ? ,gender = ?;";
-		String result ="";
+	public static String searchDBByGender(String gender) {
+		String SQL = "SELECT gender   FROM member WHERE gender = ?;";
+		String result = "";
 		try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-			
 
-			pstmt.setString(3, gender);
+			pstmt.setString(1, gender);
 			ResultSet rs = pstmt.executeQuery();
 			result = displayGender(rs);
 		} catch (SQLException ex) {
@@ -152,15 +176,15 @@ public class Human_resources {
 			System.out.println(ex.getMessage());
 			return "Not found";
 		}
-		return result;
+		return "This Gender is " +result+ " exist";
 	}
 
-	public static int searchDBByAge(int age) {
-		String SQL = "SELECT member_name ,age ,gender   FROM member WHERE member_name = ?,age = ? ,gender = ?;";
+	public static String searchDBByAge(int age) {
+		String SQL = "SELECT age    FROM member WHERE age = ? ;";
 		int result = 0;
 		try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 
-			pstmt.setInt(2, age);
+			pstmt.setInt(1, age);
 
 			ResultSet rs = pstmt.executeQuery();
 			result = displayAge(rs);
@@ -168,11 +192,23 @@ public class Human_resources {
 			System.out.println("Connection Failed! Check output console");
 			ex.printStackTrace();
 			System.out.println(ex.getMessage());
-			return 99;
+			return "Not Found";
 		}
-		return result;
+		return "This Age is " +result+ " exist";
 	}
+    public static void resetDB(){
+    	String SQL = "DELETE  FROM member ;";
+    	try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 
+    		int rs = pstmt.executeUpdate();
+			
+		} catch (SQLException ex) {
+			System.out.println("Connection Failed! Check output console");
+			ex.printStackTrace();
+			System.out.println(ex.getMessage());
+			
+		}
+    }
 	public static Connection connect() throws SQLException {
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -183,29 +219,46 @@ public class Human_resources {
 
 		}
 		// System.out.println("Success! connection");
-		return DriverManager.getConnection("jdbc:postgresql:oop_1_database", "tbap", "ionay999");
+		return DriverManager.getConnection("jdbc:postgresql:postgres", "tbap", "ionay999");
 	}
-	 private static String displayName(ResultSet rs) throws SQLException {
-	        while (rs.next()) {
-	            System.out.println(rs.getString("member_name") + "\t");
-	                    
-	 
-	        }
-	        return rs.getString("member_name") + "\t";
-	    }
-	 private static int displayAge(ResultSet rs) throws SQLException {
-	        while (rs.next()) {
-	            System.out.println(rs.getString("age") + "\t");
-	                    
-	 
-	        }
-	        return Integer.parseInt(rs.getString("age") + "\t");
-	    }
-	 private static String displayGender(ResultSet rs) throws SQLException {
-	        while (rs.next()) {
-	            System.out.println(rs.getString("gender") + "\t");
-	                   
-	        }
-	        return rs.getString("gender") + "\t";
-	    }
+
+	private static String displayName(ResultSet rs) throws SQLException {
+		String name = "";
+		if(!rs.next()){
+			name = "NULL";
+		}
+		while (rs.next()) {
+			System.out.println(rs.getString("member_name") + "\t");
+            name = rs.getString("member_name") + "\t";
+		}
+		return name;
+	}
+
+	private static int displayAge(ResultSet rs) throws SQLException {
+		int age = 0 ;
+		if(!rs.next()){
+			age = 00;
+		}
+
+		while (rs.next()) {
+			System.out.println(rs.getString("age") + "\t");
+			age = Integer.parseInt(rs.getString("age")) ;
+  
+		}
+		return age;
+	}
+
+	private static String displayGender(ResultSet rs) throws SQLException {
+		String gender = "";
+		if(!rs.next()){
+			gender = "NULL";
+		}
+
+		while (rs.next()) {
+			System.out.println(rs.getString("gender") + "\t");
+			gender = rs.getString("gender") + "\t";
+
+		}
+		return gender;
+	}
 }

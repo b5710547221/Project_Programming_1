@@ -10,6 +10,11 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -114,7 +119,7 @@ public class Administrator {
 		frame.getContentPane().add(lblEnter);
 		
 		JTextPane log = new JTextPane();
-		log.setText("Not match ! Database in construction");
+		//log.setText("Not match ! Database in construction");
 		log.setEditable(false);
 		log.setBackground(UIManager.getColor("Button.background"));
 		log.setBounds(146, 377, 384, 39);
@@ -141,9 +146,96 @@ public class Administrator {
 		bg.setBounds(0, 0, 556, 495);
 		
 		JButton btnSearch = new JButton("search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(search.getSelectedItem() == "Price"){
+					log.setText(searchDBByPrice(Integer.parseInt(input.getText())));
+				}else if(search.getSelectedItem() == "Promotion"){
+					log.setText(searchDBByPromotion(input.getText()));
+				}
+			}
+		});
 		btnSearch.setBounds(389, 248, 117, 29);
 		frame.getContentPane().add(btnSearch);
 		frame.getContentPane().add(bg);
 		
+	}
+	public static Connection connect() throws SQLException {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
+			e1.printStackTrace();
+
+		}
+		// System.out.println("Success! connection");
+		return DriverManager.getConnection("jdbc:postgresql:postgres", "tbap", "ionay999");
+	}
+	public static String searchDBByPrice(int price) {
+		String SQL = "SELECT food_price    FROM menu WHERE food_price = ? ;";
+		String result = "";
+		try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+			pstmt.setInt(1, price);
+
+			ResultSet rs = pstmt.executeQuery();
+			result = displayPrice(rs);
+		} catch (SQLException ex) {
+			System.out.println("Connection Failed! Check output console");
+			ex.printStackTrace();
+			System.out.println(ex.getMessage());
+			return "Not Found";
+		}
+		return "Price : "+ result;
+	}
+	private static String displayPrice(ResultSet rs) throws SQLException {
+		String price = "";
+		String name = "";
+		if(!rs.next()){
+			name = "NULL";
+			price = "NOT FOUND";
+		}
+		while (rs.next()) {
+			System.out.println(rs.getString("food_price") + "\t");
+            price = rs.getString("food_price") + "\t";
+            name = rs.getString("food_name") + "\t";
+		}
+		return name +" : "+  price;
+	}
+	public static String searchDBByPromotion(String food_promotion) {
+		String SQL = "SELECT food_promotion,food_price ,food_name FROM menu WHERE food_promotion = ?  ;";
+		String result = "";
+		try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+			pstmt.setString(1, food_promotion);
+
+			ResultSet rs = pstmt.executeQuery();
+			result = displayPromotion(rs);
+		} catch (SQLException ex) {
+			System.out.println("Connection Failed! Check output console");
+			ex.printStackTrace();
+			System.out.println(ex.getMessage());
+			return "Not Found";
+		}
+		return " promotion is " +result ;
+	}
+	private static String displayPromotion(ResultSet rs) throws SQLException {
+		String promotion = "";
+		String price = "";
+		String name = "";
+		
+		if(!rs.next()){
+			name = "NULL";
+			promotion = "NOT FOUND";
+		}
+		while (rs.next()) {
+			System.out.println(rs.getString("food_promotion") + "\t");
+            promotion = rs.getString("food_promotion") + "\t";
+            price = rs.getString("food_price") + "\t";
+            name = rs.getString("food_name") + "\t";
+            
+		}
+		return name+"  : "+price+" with "+ promotion;
 	}
 }

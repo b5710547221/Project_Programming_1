@@ -13,6 +13,11 @@ import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -21,7 +26,6 @@ import javax.swing.UIManager;
 public class Store {
 
 	public JFrame frame;
-	private JTextField enterItem;
     public  ArrayList<String> product = new ArrayList<String>();
 	/**
 	 * Launch the application.
@@ -57,7 +61,7 @@ public class Store {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblStockOfBar = new JLabel("STOCK OF BAR");
-		lblStockOfBar.setBounds(10, 105, 193, 15);
+		lblStockOfBar.setBounds(268, 102, 193, 15);
 		frame.getContentPane().add(lblStockOfBar);
 		
 		JTextArea menuSystem = new JTextArea();
@@ -68,47 +72,11 @@ public class Store {
 		product.add("Tuna_usuzukuri_179_bahts");
 		product.add("Green_tea_20_bahts");
 		
-		menuSystem.setText(product.get(0) +"\n"+product.get(1) +"\n"+product.get(2) +"\n"+product.get(3) +"\n"+product.get(4) +"\n");
-		menuSystem.setBounds(10, 131, 207, 217);
+		//menuSystem.setText(product.get(0) +"\n"+product.get(1) +"\n"+product.get(2) +"\n"+product.get(3) +"\n"+product.get(4) +"\n");
+		menuSystem.setText(showMenu());
+		menuSystem.setEditable(false);
+		menuSystem.setBounds(66, 129, 476, 217);
 		frame.getContentPane().add(menuSystem);
-		
-		JLabel lblSearchBy = new JLabel("Search by");
-		lblSearchBy.setBounds(265, 143, 70, 15);
-		frame.getContentPane().add(lblSearchBy);
-		
-		JComboBox search = new JComboBox();
-		search.addItem("Price");
-		search.addItem("Promotion");
-		search.setBounds(332, 138, 171, 24);
-		frame.getContentPane().add(search);
-		
-		JTextPane showDialog = new JTextPane();
-		showDialog.setText("Database in construction!");
-		showDialog.setEditable(false);
-		showDialog.setBackground(UIManager.getColor("Button.background"));
-		showDialog.setBounds(332, 233, 276, 42);
-		frame.getContentPane().add(showDialog);
-		
-		JLabel lblEnter = new JLabel("Enter");
-		lblEnter.setBounds(283, 188, 70, 15);
-		frame.getContentPane().add(lblEnter);
-		
-		enterItem = new JTextField();
-		enterItem.setBounds(332, 183, 171, 24);
-		frame.getContentPane().add(enterItem);
-		enterItem.setColumns(10);
-		
-		JLabel lblShowBelow = new JLabel("Show below");
-		lblShowBelow.setBounds(251, 248, 92, 15);
-		frame.getContentPane().add(lblShowBelow);
-		
-		JLabel lblRemoveStock = new JLabel("Remove Stock");
-		lblRemoveStock.setBounds(251, 307, 110, 15);
-		frame.getContentPane().add(lblRemoveStock);
-		
-		JButton btnThisOne = new JButton("This One");
-		btnThisOne.setBounds(332, 302, 117, 25);
-		frame.getContentPane().add(btnThisOne);
 		
 		JButton btnRevenue = new JButton("Revenue");
 		btnRevenue.addActionListener(new ActionListener(){
@@ -185,5 +153,56 @@ public class Store {
 		bg.setIcon(new ImageIcon(Store.class.getResource("/image/stroeBG.jpg")));
 		bg.setBounds(0, 0, 669, 525);
 		frame.getContentPane().add(bg);
+	}
+	public static Connection connect() throws SQLException {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("Where is your PostgreSQL JDBC Driver? "
+					+ "Include in your library path!");
+			e1.printStackTrace();
+			
+		}
+		
+		//System.out.println("Success! connection");
+        return DriverManager.getConnection("jdbc:postgresql:postgres", "tbap",
+				"ionay999");
+    }
+	public static String showMenu() {
+		String SQL = "SELECT * FROM menu ;";
+		String result = "";
+		try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+			//pstmt.setString(1, food_promotion);
+
+			ResultSet rs = pstmt.executeQuery();
+			result = display(rs);
+		} catch (SQLException ex) {
+			System.out.println("Connection Failed! Check output console");
+			ex.printStackTrace();
+			System.out.println(ex.getMessage());
+			return "Not Found";
+		}
+		return " promotion is " +result ;
+	}
+	private static String display(ResultSet rs) throws SQLException {
+		String promotion = "";
+		String price = "";
+		String name = "";
+		
+		if(!rs.next()){
+			name = "NULL";
+			promotion = "NOT FOUND";
+			price = "NULL";
+		}
+		while (rs.next()) {
+			System.out.println(rs.getString("food_promotion") + "\t");
+            promotion = rs.getString("food_promotion") + "\t";
+            price = rs.getString("food_price") + "\t";
+            name = rs.getString("food_name") + "\t";
+            
+		}
+		return name+"  : "+price+" with "+ promotion;
 	}
 }

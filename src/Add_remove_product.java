@@ -9,6 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -66,6 +70,7 @@ public class Add_remove_product {
 		btnAdd.setIcon(new ImageIcon(Add_remove_product.class.getResource("/image/addBtn.jpg")));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				JDialog prompt = new JDialog();
 				JLabel msg = new JLabel("Add product "+ productField.getText());
 				msg.setBounds(50, 50, 80, 50);
@@ -74,6 +79,8 @@ public class Add_remove_product {
 				prompt.setContentPane(msg);
 				prompt.setBounds(231, 50, 149, 23);
 				prompt.setSize(300, 300);
+				addProduct(productField.getText(),Integer.parseInt(price.getText()),promotion.getText());
+				
 			}
 		});
 		
@@ -92,6 +99,7 @@ public class Add_remove_product {
 				prompt.setContentPane(msg);
 				prompt.setBounds(231, 50, 149, 23);
 				prompt.setSize(300, 300);
+				removeProduct(productField.getText(),Integer.parseInt(price.getText()),promotion.getText());
 			}
 		});
 		btnRemove.setBounds(351, 288, 160, 52);
@@ -134,5 +142,58 @@ public class Add_remove_product {
 		price.setBounds(177, 139, 230, 38);
 		frame.getContentPane().add(price);
 		frame.getContentPane().add(bg);
+	}
+	public static Connection connect() throws SQLException {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("Where is your PostgreSQL JDBC Driver? "
+					+ "Include in your library path!");
+			e1.printStackTrace();
+			
+		}
+		
+		//System.out.println("Success! connection");
+        return DriverManager.getConnection("jdbc:postgresql:postgres", "tbap",
+				"ionay999");
+    }
+	public static void addProduct(String food_name,int food_price, String food_promotion){
+		String SQL = "INSERT INTO menu (food_name,food_price,food_promotion) VALUES (?,?,?);";
+		 try (Connection conn = connect();
+	                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	 
+	            pstmt.setString(1, food_name);
+	            //pstmt.setString(2, age);
+	            pstmt.setInt(2, food_price);
+	            pstmt.setString(3, food_promotion);
+	            pstmt.executeUpdate();
+	            System.out.println("Add menu successful!!");
+	            conn.close();
+	        } catch (SQLException ex) {
+	        	System.out.println("Connection Failed! Check output console");
+				ex.printStackTrace();
+	            System.out.println(ex.getMessage());
+	            return;
+	        }
+	}
+	public static void removeProduct(String food_name,int food_price, String food_promotion){
+		String SQL = "DELETE FROM menu WHERE food_name = ? AND food_price = ? AND food_promotion = ?;";
+		 try (Connection conn = connect();
+	                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	 
+	            pstmt.setString(1, food_name);
+	            //pstmt.setString(2, age);
+	            pstmt.setInt(2, food_price);
+	            pstmt.setString(3, food_promotion);
+	            pstmt.executeUpdate();
+	            System.out.println("delete menu successful!!");
+	            conn.close();
+	        } catch (SQLException ex) {
+	        	System.out.println("Connection Failed! Check output console");
+				ex.printStackTrace();
+	            System.out.println(ex.getMessage());
+	            return;
+	        }
 	}
 }
