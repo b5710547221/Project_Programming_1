@@ -173,7 +173,7 @@ public class Administrator {
 		return DriverManager.getConnection("jdbc:postgresql:postgres", "tbap", "ionay999");
 	}
 	public static String searchDBByPrice(int price) {
-		String SQL = "SELECT food_price    FROM menu WHERE food_price = ? ;";
+		String SQL = "SELECT food_price  ,food_name  FROM menu WHERE food_price = ? ;";
 		String result = "";
 		try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 
@@ -187,7 +187,7 @@ public class Administrator {
 			System.out.println(ex.getMessage());
 			return "Not Found";
 		}
-		return "Price : "+ result;
+		return "Price : " +result;
 	}
 	private static String displayPrice(ResultSet rs) throws SQLException {
 		String price = "";
@@ -218,7 +218,7 @@ public class Administrator {
 			System.out.println(ex.getMessage());
 			return "Not Found";
 		}
-		return " promotion is " +result ;
+		return " promotion is "+result ;
 	}
 	private static String displayPromotion(ResultSet rs) throws SQLException {
 		String promotion = "";
